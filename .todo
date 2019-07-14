@@ -1,0 +1,15 @@
+
+☐ get all targets (directories? files?)
+  ☐ only option?
+☐ exits with error on error
+
+☐ cleanup
+☐ build
+  ☐ print stdout/sderr when not checking
+☐ check
+  ☐ using git
+  ☐ optional
+
+☐ source
+☐ output
+☐ check
