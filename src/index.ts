@@ -15,6 +15,11 @@ import Log from './log';
 
 async function diff ( options: Options ): Promise<void> {
 
+  /* UNCAUGHT EXCEPTIONS/REJECTIONS */
+
+  process.on ( 'uncaughtException', exit );
+  process.on ( 'unhandledRejection', exit );
+
   /* INIT */
 
   rimraf.sync ( options.output.cwd );

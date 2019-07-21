@@ -5,9 +5,17 @@ import Log from './log';
 
 /* EXIT */
 
-function exit ( message?: string ): void {
+function exit ( err?: Error | string ): void {
 
-  if ( message ) Log.error ( message );
+  if ( err instanceof Error ) {
+
+    Log.block ( 'Error', err.stack || err.message, 'error' );
+
+  } else if ( err ) {
+
+    Log.error ( err );
+
+  }
 
   process.exit ( 1 );
 
