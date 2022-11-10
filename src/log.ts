@@ -1,48 +1,76 @@
 
 /* IMPORT */
 
-import chalk from 'chalk';
-import {CommandResult} from './types';
+import color from 'tiny-colors';
+import type {CommandResult} from './types';
 
-/* LOG */
+/* HELPERS */
+
+const parseMessage = ( message: string ): string => {
+
+  // Automatically underlining things between quotes
+
+  return message.replace ( /(['"`])([^"]+?)\1/g, ( _, $1, $2 ) => {
+
+    return `${$1}${color.underline ( $2 )}${$1}`;
+
+  });
+
+};
+
+/* MAIN */
 
 const Log = {
 
-  _parseMessage ( message: string ): string {
+  /* TEST API */
 
-    return message.replace ( /(['"`])([^"]+?)\1/g, ( match, $1, $2 ) => `${$1}${chalk.underline ( $2 )}${$1}` ); // Automatically underlining things inside quotes
+  test: {
+
+    error: ( name: string ): void => {
+
+      Log.error ( `✖ ${name}` );
+
+    },
+
+    success: ( name: string ): void => {
+
+      Log.success ( `✔ ${name}` );
+
+    }
 
   },
 
-  neutral ( message: string ): void {
+  /* API */
+
+  neutral: ( message: string ): void => {
 
     console.log ( message );
 
   },
 
-  error ( message: string ): void {
+  error: ( message: string ): void => {
 
-    Log.neutral ( chalk.red ( Log._parseMessage ( message ) ) );
-
-  },
-
-  success ( message: string ): void {
-
-    Log.neutral ( chalk.green ( Log._parseMessage ( message ) ) );
+    Log.neutral ( color.red ( parseMessage ( message ) ) );
 
   },
 
-  warning ( message: string ): void {
+  success: ( message: string ): void => {
 
-    Log.neutral ( chalk.yellow ( Log._parseMessage ( message ) ) );
+    Log.neutral ( color.green ( parseMessage ( message ) ) );
 
   },
 
-  block ( name: string, message: string, type: 'neutral' | 'error' | 'success' | 'warning' = 'neutral' ): void {
+  warning: ( message: string ): void => {
 
-    const delimiterStart = `┌ ${name} ────────────────────`,
-          delimiterEnd = `└${'─'.repeat ( delimiterStart.length - 1 )}`,
-          output = `  ${message.split ( '\n' ).join ( '\n  ' )}`;
+    Log.neutral ( color.yellow ( parseMessage ( message ) ) );
+
+  },
+
+  block: ( name: string, message: string, type: 'neutral' | 'error' | 'success' | 'warning' = 'neutral' ): void => {
+
+    const delimiterStart = `┌ ${name} ────────────────────`;
+    const delimiterEnd = `└${'─'.repeat ( delimiterStart.length - 1 )}`;
+    const output = `  ${message.split ( '\n' ).join ( '\n  ' )}`;
 
     Log[type] ( delimiterStart );
     Log.neutral ( output );
@@ -50,7 +78,7 @@ const Log = {
 
   },
 
-  result ( name: string, result: CommandResult, verbose: boolean = false ): void {
+  result: ( name: string, result: CommandResult, verbose: boolean = false ): void => {
 
     if ( result.stdout && verbose ) {
 
@@ -61,22 +89,6 @@ const Log = {
     if ( result.stderr ) {
 
       Log.block ( `${name}:stderr`, result.stderr, 'error' );
-
-    }
-
-  },
-
-  test: {
-
-    error ( name: string ): void {
-
-      Log.error ( `✖ ${name}` );
-
-    },
-
-    success ( name: string ): void {
-
-      Log.success ( `✔ ${name}` );
 
     }
 

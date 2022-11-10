@@ -3,23 +3,23 @@
 
 import Log from './log';
 
-/* EXIT */
+/* MAIN */
 
-function exit ( err?: Error | string ): void {
+const exit = ( error?: Error | string ): never => {
 
-  if ( err instanceof Error ) {
+  if ( error instanceof Error ) {
 
-    Log.block ( 'Error', err.stack || err.message, 'error' );
+    Log.block ( 'Error', error.stack || error.message, 'error' );
 
-  } else if ( err ) {
+  } else if ( error ) {
 
-    Log.error ( err );
+    Log.error ( error );
 
   }
 
   process.exit ( 1 );
 
-}
+};
 
 /* EXPORT */
 

@@ -1,5 +1,5 @@
 
-/* TYPES */
+/* MAIN */
 
 type CommandResult = {
   stdout?: string,
@@ -18,11 +18,11 @@ type Options = {
     make: ( source: string ) => void | CommandResult | Promise<void> | Promise<CommandResult>
   },
   check: {
-    cwd: string
+    cwd: string,
     glob: string | string[]
   }
 };
 
 /* EXPORT */
 
-export {CommandResult, Options};
+export type {CommandResult, Options};

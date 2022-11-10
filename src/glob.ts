@@ -1,19 +1,24 @@
 
 /* IMPORT */
 
-import * as globby from 'globby';
+import path from 'node:path';
+import picomatch from 'picomatch';
+import readdir from 'tiny-readdir';
 
-/* GLOB */
+/* MAIN */
 
 const Glob = {
 
-  exec ( glob: string | string[], cwd: string ): Promise<string[]> {
+  /* API */
 
-    return globby ( glob, {
-      cwd,
-      onlyDirectories: false,
-      onlyFiles: false
-    });
+  exec: async ( glob: string | string[], cwd: string ): Promise<string[]> => {
+
+    const isMatch = picomatch ( glob, { cwd } );
+    const {files} = await readdir ( cwd );
+    const filesMatching = files.filter ( isMatch );
+    const filesRelative = filesMatching.map ( file => path.relative ( cwd, file ) );
+
+    return filesRelative;
 
   }
 
