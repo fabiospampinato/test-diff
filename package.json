@@ -2,7 +2,7 @@
   "name": "test-diff",
   "repository": "github:fabiospampinato/test-diff",
   "description": "Library for writing tests that diff the excepted output with the actual output.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "main": "dist/index.js",
   "exports": "./dist/index.js",
