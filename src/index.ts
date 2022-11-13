@@ -23,7 +23,11 @@ const diff = async ( options: Options ): Promise<void> => {
 
   if ( isPathInside ( process.cwd (), options.output.cwd ) ) {
 
-    fs.rmSync ( options.output.cwd, { recursive: true } );
+    if ( fs.existsSync ( options.output.cwd ) ) {
+
+      fs.rmSync ( options.output.cwd, { recursive: true } );
+
+    }
 
   }
 
