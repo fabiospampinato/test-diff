@@ -13,12 +13,12 @@ const Glob = {
 
   exec: async ( glob: string | string[], cwd: string ): Promise<string[]> => {
 
-    const isMatch = picomatch ( glob, { cwd } );
+    const isMatch = picomatch ( glob );
     const {files} = await readdir ( cwd );
-    const filesMatching = files.filter ( isMatch );
-    const filesRelative = filesMatching.map ( file => path.relative ( cwd, file ) );
+    const filesRelative = files.map ( file => path.relative ( cwd, file ) );
+    const filesMatching = filesRelative.filter ( file => isMatch ( file ) );
 
-    return filesRelative;
+    return filesMatching;
 
   }
 
