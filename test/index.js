@@ -4,6 +4,7 @@
 import {describe} from 'fava';
 import fs from 'node:fs';
 import path from 'node:path';
+import process from 'node:process';
 import diff from '../dist/index.js';
 
 /* MAIN */
@@ -20,7 +21,7 @@ describe ( 'Diff', it => {
       silent: true,
       source: {
         cwd: SOURCE,
-        glob: '*'
+        glob: '**'
       },
       output: {
         cwd: OUTPUT,
@@ -34,7 +35,7 @@ describe ( 'Diff', it => {
       },
       check: {
         cwd: CHECK,
-        glob: '*'
+        glob: '**'
       }
     });
 
@@ -52,7 +53,7 @@ describe ( 'Diff', it => {
       silent: true,
       source: {
         cwd: SOURCE,
-        glob: '*'
+        glob: '**'
       },
       output: {
         cwd: OUTPUT,
@@ -63,7 +64,7 @@ describe ( 'Diff', it => {
       },
       check: {
         cwd: CHECK,
-        glob: '*'
+        glob: '**'
       }
     });
 

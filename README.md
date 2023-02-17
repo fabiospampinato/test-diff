@@ -27,7 +27,7 @@ import diff from 'test-diff';
 diff ({
   source: {
     cwd: path.join ( __dirname, 'source' ), // Path containing the files/folders to parse
-    glob: '*' // Glob used to find individual files/folders to parse
+    glob: '**' // Glob used to find individual files/folders to parse
   },
   output: {
     cwd: path.join ( __dirname, 'output' ), // Path containing the actual output
@@ -39,7 +39,7 @@ diff ({
   },
   check: {
     cwd: path.join ( __dirname, 'check' ), // Path containing the expected output
-    glob: '*' // Glob used to find individual tests to perform
+    glob: '**' // Glob used to find individual tests to perform
   }
 });
 ```

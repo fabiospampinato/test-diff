@@ -1,6 +1,7 @@
 
 /* IMPORT */
 
+import process from 'node:process';
 import Log from './log';
 
 /* MAIN */
