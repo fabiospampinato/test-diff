@@ -140,3 +140,4 @@ const diff = async ( options: Options ): Promise<void> => {
 /* EXPORT */
 
 export default diff;
+export type {Options};
